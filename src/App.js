@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import {Route,Switch, withRouter, Redirect} from 'react-router-dom';
+import {Route,Switch, Redirect} from 'react-router-dom';        //withRouter
 import Particles from 'react-particles-js';
 import Home from './Components/Home/Home';
-import Navigation from './Components/Navigation/Navigation';
-import Signin from './Components/SignIn/SignIn';
+// import Navigation from './Components/Navigation/Navigation';
+import SignIn from './Components/SignIn/SignIn';
 import SignUp from './Components/SignUp/SignUp';
+import Layout from './Containers/Layout/Layout';
 import './App.css';
 
 const particlesOptions = {  
@@ -58,8 +59,8 @@ function App() {
   let routes = (
     <Switch>
       <Route path="/" exact component={Home} />
-      <Route path="/signin" component={Signin} />
-      <Route path="/register" component={SignUp} />
+      <Route path="/signin" component={() => <SignIn setIsSignedIn={setIsSignedIn} />} />
+      <Route path="/register" component={() => <SignUp setIsSignedIn={setIsSignedIn} />} />
       <Redirect to="/" />
     </Switch>
   )
@@ -67,8 +68,10 @@ function App() {
   return (
     <div className="App">
       <Particles className='particles' params={particlesOptions} />
-      <Navigation isSignedIn={isSignedIn} />
-      {routes}
+      {/* <Navigation isSignedIn={isSignedIn} /> */}
+      <Layout isSignedIn={isSignedIn} setIsSignedIn={setIsSignedIn}>
+        {routes}
+      </Layout>
     </div>
     
   );
